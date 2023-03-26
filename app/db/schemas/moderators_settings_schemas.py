@@ -4,9 +4,10 @@ from pydantic import BaseModel
 
 
 class ModeratorSettingsBase(BaseModel):
-    moderator_id: int
+    moderator_id: Optional[int] = None
     player_is_new: Optional[int] = None
     exclude_servers: Optional[list[str]] = None
+    include_reasons: Optional[list[str]] = None
     exclude_reasons: Optional[list[str]] = None
 
 
@@ -19,7 +20,7 @@ class UpdateModeratorSettings(CreateModeratorSettings):
 
 
 class ModeratorSettings(ModeratorSettingsBase):
-    id: int
+    pass
 
     class Config:
         orm_mode = True
