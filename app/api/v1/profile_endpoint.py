@@ -17,7 +17,6 @@ async def get_profile_data(*, moderator: models.Moderator = Depends(get_current_
         vk_id=moderator.vk_id,
     )
 
-
 @router.get('/settings', response_model=schemas.ModeratorSettings)
 async def get_moderator_settings(
     *, session: AsyncSession = Depends(get_session), moderator: models.Moderator = Depends(get_current_moder)

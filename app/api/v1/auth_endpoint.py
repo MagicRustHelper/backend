@@ -12,10 +12,10 @@ from app.services.vk.vk_auth import VKAuth
 router = APIRouter(tags=['Auth'])
 
 
-@router.get('/vk', response_model=entities.BearerToken)
+@router.get('/vk', response_model=entities.AuthData)
 async def vk_auth(
     code: str, *, session: AsyncSession = Depends(get_session), vk_auth: VKAuth = Depends(get_vk_auth)
-) -> entities.BearerToken:
+) -> entities.AuthData:
     try:
         oauth2_credentials = await vk_auth.get_oauth2_credentials(code)
     except Exception as ex:
@@ -31,7 +31,7 @@ async def vk_auth(
 
     token_payload = entities.TokenPayload(db_id=moderator.id)
     bearer_token = security.create_access_token(token_payload)
-    return entities.BearerToken(token=bearer_token)
+    return entities.AuthData(token=bearer_token, avatar_url=moderator.avatar_url)
 
 
 @router.get('/validate', response_class=Response, status_code=204)

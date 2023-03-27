@@ -20,5 +20,6 @@ class VKAuthResponse(BaseModel):
     user_id: int
 
 
-class BearerToken(BaseModel):
+class AuthData(BaseModel):
     token: str
+    avatar_url: str = Field(alias='avatarUrl')
