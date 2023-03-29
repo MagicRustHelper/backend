@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from app.core import settings
 from app.entities import SteamBaseResponse, SteamUser
 from app.services.api_client import APIClient, ResponseModel
@@ -8,9 +10,10 @@ class SteamAPI:
     API_KEY = settings.STEAM_KEY
 
     def __init__(self) -> None:
-        self.api_client = APIClient(self.API_URL, retries=1, sleep=0)
+        self.api_client = APIClient(self.API_URL, retries=2, sleep=10)
         self.api_key = {'key': self.API_KEY}
 
+    @lru_cache(maxsize=500)  # noqa: B019
     async def get_steam_player(self, steamid: int | str) -> SteamUser:
         return await self.api_request(
             '/ISteamUser/GetPlayerSummaries/v0002/', params={'steamids': steamid}, response_model=SteamBaseResponse

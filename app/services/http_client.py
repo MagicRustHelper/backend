@@ -36,6 +36,8 @@ class HTTPClient:
             except httpx.HTTPStatusError as e:
                 retry -= 1
                 logger.exception(e)
+                if retry == 0:
+                    raise e
                 await asyncio.sleep(self.sleep)
             else:
                 return response

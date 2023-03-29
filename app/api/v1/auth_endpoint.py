@@ -31,7 +31,7 @@ async def vk_auth(
 
     token_payload = entities.TokenPayload(db_id=moderator.id)
     bearer_token = security.create_access_token(token_payload)
-    return entities.AuthData(token=bearer_token, avatar_url=moderator.avatar_url)
+    return entities.AuthData(token=bearer_token, avatarUrl=moderator.avatar_url)
 
 
 @router.get('/validate', response_class=Response, status_code=204)

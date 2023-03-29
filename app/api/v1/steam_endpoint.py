@@ -13,4 +13,4 @@ async def get_steam_user_avatar(
     steamid: int, *, moderator: Moderator = Depends(get_current_moder), steam_api: SteamAPI = Depends(get_steam_api)
 ) -> entities.SteamAvatarResponse:
     player = await steam_api.get_steam_player(steamid)
-    return entities.SteamAvatarResponse(avatarUrl=player.avatarmedium)
+    return entities.SteamAvatarResponse(avatarUrl=player.avatarmedium, avatarFullUrl=player.avatarfull)
