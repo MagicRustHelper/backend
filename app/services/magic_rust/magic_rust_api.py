@@ -2,7 +2,6 @@ import asyncio
 import time
 from typing import Any, Callable
 
-from app.core import utils
 from app.entities import BanInfo, Player, PlayerStats, ReportShow
 from app.services.api_client import APIClient, ResponseModel
 from app.services.magic_rust._urls import ModersMethods, SiteMethods, StatsMethods
@@ -75,8 +74,8 @@ class MagicRustAPI:
         for arg in args:
             task = asyncio.ensure_future(method(arg))
             tasks.append(task)
-        results = await asyncio.gather(*tasks)
-        return utils.exclude_exception(results)
+        results = await asyncio.gather(*tasks, return_exceptions=False)
+        return results
 
     def _get_server_id(self, server_number: int) -> int:
         return SERVERS_ID.get(server_number, 1655)

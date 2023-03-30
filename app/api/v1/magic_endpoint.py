@@ -46,3 +46,13 @@ async def get_player_stats(
     moderator: Moderator = Depends(get_current_moder)
 ) -> entities.PlayerStats:
     return await mr_api.get_player_stats(server_number=server_number, steamid=steamid)
+
+
+@router.post('/players/fill-stats', response_model=list[entities.Player])
+async def fill_players_stats(
+    players: list[entities.Player],
+    *,
+    mr_api: MagicRustAPI = Depends(get_mr_api),
+    moderator: Moderator = Depends(get_current_moder)
+) -> entities.Player:
+    return await mr_api.fill_players_stats(players)

@@ -3,6 +3,9 @@ from typing import Optional
 from pydantic import BaseModel, Field, root_validator
 
 
+DEFAULT_STEAM_AVATAR = 'https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg'
+
+
 class PlayerStats(BaseModel):
     steamid: str | None = None
     kills: int = Field(0, alias='kp_total')
@@ -13,13 +16,14 @@ class PlayerStats(BaseModel):
     headshot: int = Field(0, alias='kp_head')
     kd: float
     nickname: str = Field(None, alias='name')
+    avatar: str = Field(DEFAULT_STEAM_AVATAR)
 
     @root_validator(pre=True)
     def get_kd(cls, values: dict) -> dict:
         if values.get('d_player') == 0:
             values['kd'] = values.get('kp_total', 0)
         else:
-            values['kd'] = values.get('kp_total', 0) / values.get('d_player', 1)
+            values['kd'] = round(values.get('kp_total', 0) / values.get('d_player', 1), 1)
         return values
 
 
