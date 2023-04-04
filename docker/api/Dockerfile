@@ -28,6 +28,7 @@ RUN apt install make
 
 COPY ./app/ ./app/
 COPY ./Makefile .
-COPY .alembic.ini .
+COPY ./alembic.ini .
+COPY ./migrations ./migrations/
 
 CMD ["make", "run-production"]
