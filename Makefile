@@ -9,10 +9,10 @@ build:
 	docker compose -f "docker-compose.prod.yml" -p "api" up --build -d
 
 run-production:
+	alembic upgrade head
 	uvicorn app:app --port 4430 --host 0.0.0.0
 
 logs:
 	docker logs api
 
 
-	

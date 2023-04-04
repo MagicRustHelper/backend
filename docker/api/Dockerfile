@@ -28,5 +28,6 @@ RUN apt install make
 
 COPY ./app/ ./app/
 COPY ./Makefile .
+COPY .alembic.ini .
 
 CMD ["make", "run-production"]
