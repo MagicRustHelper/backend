@@ -24,7 +24,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         return await session.scalars(statement)
 
     async def create(self, session: AsyncSession, *, obj_in: CreateSchemaType) -> ModelType:
-        obj_in_dict = obj_in.dict()
+        obj_in_dict = obj_in.dict(exclude_none=True)
         db_obj = self.model(**obj_in_dict)  # type: ignore
         session.add(db_obj)
         await session.commit()

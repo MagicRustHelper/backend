@@ -14,7 +14,7 @@ async def test_rcc_cache(mocked_rcc_api, rcc_player_response: dict):
     rcc_api: RustCheatCheckAPI = mocked_rcc_api(None)
     player = await rcc_api.get_rcc_player('ANY VALUE')
     assert player is not None
-    assert player.steamid == int(rcc_player_response.get('steamid'))
+    assert player.steamid == rcc_player_response.get('steamid')
 
 
 async def test_rcc_error_response(mocked_rcc_api, rcc_error_response):

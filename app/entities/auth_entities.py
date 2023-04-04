@@ -23,3 +23,8 @@ class VKAuthResponse(BaseModel):
 class AuthData(BaseModel):
     token: str
     avatar_url: str = Field(alias='avatarUrl')
+
+
+class CreateModerator(BaseModel):
+    steamid: str | int
+    vk_id: str | int = Field(alias='vkId')

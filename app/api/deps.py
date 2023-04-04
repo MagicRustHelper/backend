@@ -41,6 +41,12 @@ async def get_current_moder(
     return moderator
 
 
+async def get_current_superuser(moderator: Moderator = Depends(get_current_moder)) -> Moderator:
+    if moderator.is_superuser:
+        return moderator
+    raise HTTPException(status.HTTP_403_FORBIDDEN, detail='Access denied')
+
+
 def get_rcc_api() -> RustCheatCheckAPI:
     return RustCheatCheckAPI()
 

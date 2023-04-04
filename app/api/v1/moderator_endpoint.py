@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import get_current_moder, get_session
+from app.api.deps import get_current_moder, get_current_superuser, get_session
 from app.db import crud, models, schemas
 
 router = APIRouter(tags=['Profile'])
@@ -49,4 +49,17 @@ async def update_moderator_settings(
             exclude_reasons=moderator_settings.exclude_reasons,
         ),
     )
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+@router.post('/new', response_class=Response, status_code=204)
+async def create_moderator(
+    new_moderator: schemas.CreateModerator,
+    *,
+    session: AsyncSession = Depends(get_session),
+    superuser: models.Moderator = Depends(get_current_superuser)
+) -> None:
+    moderator_obj = await crud.moderator.create(session, obj_in=new_moderator)
+    print(moderator_obj.id)
+    await crud.moderator_settings.create(session, obj_in=schemas.CreateModeratorSettings(moderator_id=moderator_obj.id))
     return Response(status_code=status.HTTP_204_NO_CONTENT)

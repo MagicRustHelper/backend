@@ -5,8 +5,8 @@ from pydantic import BaseModel
 
 class ModeratorBase(BaseModel):
     name: str
-    steamid: int
-    vk_id: int
+    steamid: int | str
+    vk_id: int | str
     avatar_url: Optional[str] = None
     is_superuser: bool = False
     is_bot: bool = False
