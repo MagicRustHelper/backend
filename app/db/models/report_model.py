@@ -11,6 +11,6 @@ class Report(BaseDeclarative):
 
     id: Mapped[intpk]
     author_nickname: Mapped[str]
-    report_steamid: Mapped[int] = mapped_column(BigInteger)
+    report_steamid: Mapped[str]
     time: Mapped[datetime] = mapped_column(insert_default=func.now())
     server_number: Mapped[int]

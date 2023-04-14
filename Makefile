@@ -10,7 +10,7 @@ build:
 
 run-production:
 	alembic upgrade head
-	uvicorn app:app --port 4430 --host 0.0.0.0
+	uvicorn app:app --port 8080 --host 0.0.0.0
 
 logs:
 	docker logs api

@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 class ReportBase(BaseModel):
     author_nickname: str
-    report_steamid: int
+    report_steamid: str
     server_number: int
 
 

@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from sqlalchemy import BigInteger, ForeignKey, func
+from sqlalchemy import ForeignKey, func
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db import BaseDeclarative, intpk
@@ -11,7 +11,7 @@ class Check(BaseDeclarative):
     __tablename__ = 'checks'
 
     id: Mapped[intpk]
-    steamid: Mapped[int] = mapped_column(BigInteger)
+    steamid: Mapped[str]
     moderator_id: Mapped[int] = mapped_column(ForeignKey('moderators.id'))
     start: Mapped[datetime] = mapped_column(insert_default=func.now())
     end: Mapped[Optional[datetime]] = mapped_column(insert_default=func.now())

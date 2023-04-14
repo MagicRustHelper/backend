@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 class ModeratorBase(BaseModel):
     name: str
-    steamid: int | str
+    steamid: str
     vk_id: int | str
     avatar_url: Optional[str] = None
     is_superuser: bool = False
@@ -18,7 +18,7 @@ class CreateModerator(ModeratorBase):
 
 class UpdateModerator(ModeratorBase):
     name: Optional[str] = None
-    steamid: Optional[int] = None
+    steamid: Optional[str] = None
     vk_id: Optional[int] = None
     is_superuser: bool = None
     is_bot: bool = None

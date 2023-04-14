@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 
 class CheckBase(BaseModel):
-    steamid: int
+    steamid: str
     moderator_id: int
     start: datetime
     end: Optional[datetime] = None
@@ -18,7 +18,7 @@ class CreateCheck(CheckBase):
 
 
 class UpdateCheck(CheckBase):
-    steamid: Optional[int] = None
+    steamid: Optional[str] = None
     moderator_id: Optional[int] = None
     start: Optional[datetime] = None
     server_number: Optional[int] = None

@@ -11,7 +11,7 @@ class Moderator(BaseDeclarative):
 
     id: Mapped[intpk]
     name: Mapped[str]
-    steamid: Mapped[int] = mapped_column(BigInteger, unique=True)
+    steamid: Mapped[str]
     vk_id: Mapped[int] = mapped_column(BigInteger, unique=True)
     avatar_url: Mapped[Optional[str]] = mapped_column(default=None)
     is_superuser: Mapped[bool] = mapped_column(default=False)
