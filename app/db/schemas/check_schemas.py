@@ -7,10 +7,10 @@ from pydantic import BaseModel
 class CheckBase(BaseModel):
     steamid: str
     moderator_id: int
-    start: datetime
+    start: Optional[datetime] = None
     end: Optional[datetime] = None
     server_number: int
-    is_ban: bool
+    is_ban: bool = False
 
 
 class CreateCheck(CheckBase):

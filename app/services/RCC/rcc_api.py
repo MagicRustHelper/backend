@@ -28,7 +28,7 @@ class RustCheatCheckAPI:
         response = await self.api_requests(self.get_rcc_player, steamids)
         return utils.exclude_exception(response)
 
-    async def give_checker_access(self, player_steamid: int, moder_stemaid: int = 0) -> RCCAPIResponse:
+    async def give_checker_access(self, player_steamid: int, moder_stemaid: int = 0) -> RCCBaseResponse:
         params = {
             'player': player_steamid,
             'moder': moder_stemaid,
