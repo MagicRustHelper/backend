@@ -13,11 +13,11 @@ async def create_check(
     *,
     session: AsyncSession = Depends(get_session),
     bot: models.Moderator = Depends(get_current_bot)
-) -> models.Moderator:
+) -> models.Check:
     return await crud.check.create(session, obj_in=check_create)
 
 
-@router.put('/', response_model=models.Check)
+@router.put('/{check_id}', response_model=models.Check)
 async def complete_check(
     check_id: int,
     is_ban: bool = False,
@@ -28,7 +28,7 @@ async def complete_check(
     return await crud.check.complete_check(session, check_id, is_ban)
 
 
-@router.delete('/', response_model=models.Check)
+@router.delete('/{check_id}', response_model=models.Check)
 async def cancel_check(
     check_id: int, *, session: AsyncSession = Depends(get_session), bot: models.Moderator = Depends(get_current_bot)
 ) -> models.Check:
