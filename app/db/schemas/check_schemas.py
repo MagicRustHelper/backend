@@ -1,14 +1,18 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+
+
+def get_now_time() -> datetime:
+    return datetime.now()
 
 
 class CheckBase(BaseModel):
     steamid: str
     moderator_id: int
-    start: Optional[datetime] = None
-    end: Optional[datetime] = None
+    start: Optional[datetime] = Field(default_factory=get_now_time)
+    end: Optional[datetime] = Field(default_factory=get_now_time)
     server_number: int
     is_ban: bool = False
 

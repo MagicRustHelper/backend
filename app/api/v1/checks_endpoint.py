@@ -7,7 +7,7 @@ from app.db import crud, models, schemas
 router = APIRouter(tags=['Checks'])
 
 
-@router.post('/', response_model=models.Check)
+@router.post('', response_model=models.Check)
 async def create_check(
     check_create: schemas.CreateCheck,
     *,
