@@ -18,7 +18,8 @@ class CheckBase(BaseModel):
 
 
 class CreateCheck(CheckBase):
-    pass
+    moderator_id: int | None = None
+    moderator_vk_id: int
 
 
 class UpdateCheck(CheckBase):

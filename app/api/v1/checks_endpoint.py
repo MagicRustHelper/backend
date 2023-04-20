@@ -14,6 +14,8 @@ async def create_check(
     session: AsyncSession = Depends(get_session),
     bot: models.Moderator = Depends(get_current_bot)
 ) -> models.Check:
+    moderator = await crud.moderator.get_moder_by_vk(session, check_create.moderator_vk_id)
+    check_create.moderator_id = moderator.id
     return await crud.check.create(session, obj_in=check_create)
 
 

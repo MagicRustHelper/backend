@@ -41,7 +41,7 @@ def upgrade() -> None:
     op.create_table(
         'checks',
         sa.Column('id', sa.Integer(), nullable=False),
-        sa.Column('steamid', sa.BigInteger(), nullable=False),
+        sa.Column('steamid', sa.String(), nullable=False),
         sa.Column('moderator_id', sa.Integer(), nullable=False),
         sa.Column('start', sa.DateTime(), nullable=False),
         sa.Column('end', sa.DateTime(), nullable=True),
