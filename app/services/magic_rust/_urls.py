@@ -11,7 +11,7 @@ class StatsMethods:
 
 
 class ModersMethods:
-    PLAYERS_ONLINE = MODERS_API + 'getPlayersList.php'
+    PLAYERS_ONLINE = MODERS_API + 'getOnlinePlayers.php'
 
 
 class SiteMethods:
