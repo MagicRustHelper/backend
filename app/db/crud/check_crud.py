@@ -10,7 +10,7 @@ from app.db.schemas import CreateCheck, UpdateCheck
 class CRUDCheck(CRUDBase[Check, CreateCheck, UpdateCheck]):
     async def complete_check(self, session: AsyncSession, check_id: int, is_ban: bool = False) -> Check:
         check = await self.get(session, check_id)
-        check.end = datetime.now()
+        check.end = datetime.now().timestamp()
         check.is_ban = is_ban
         await session.commit()
         return check
