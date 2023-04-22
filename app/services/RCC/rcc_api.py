@@ -19,16 +19,16 @@ class RustCheatCheckAPI:
         self.api_key: dict[str, str] = {'key': self.API_KEY}
 
     @rcc_player_cache
-    async def get_rcc_player(self, steamid: int) -> RCCPlayer:
+    async def get_rcc_player(self, steamid: str) -> RCCPlayer:
         params = {'player': steamid}
         rcc_player = await self.api_request('getInfo', params, RCCPlayer)
         return rcc_player
 
-    async def get_rcc_players(self, steamids: list[int]) -> list[RCCPlayer]:
+    async def get_rcc_players(self, steamids: list[str]) -> list[RCCPlayer]:
         response = await self.api_requests(self.get_rcc_player, steamids)
         return utils.exclude_exception(response)
 
-    async def give_checker_access(self, player_steamid: int, moder_stemaid: int = 0) -> RCCBaseResponse:
+    async def give_checker_access(self, player_steamid: str, moder_stemaid: str = 0) -> RCCBaseResponse:
         params = {
             'player': player_steamid,
             'moder': moder_stemaid,

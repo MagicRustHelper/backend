@@ -28,9 +28,12 @@ class MagicRustAPI:
         player.stats = await self.get_player_stats(player.steamid, player.server_number)
         return player
 
-    async def get_online_players(self) -> list[Player]:
+    async def get_online_players(self, stats: bool = False) -> list[Player]:
         url = ModersMethods.PLAYERS_ONLINE
-        return await self.api_request(url, response_model=Player)
+        players = await self.api_request(url, response_model=Player)
+        if stats:
+            players = await self.fill_players_stats(players=players)
+        return players
 
     async def get_online_steamids(self) -> list[int]:
         online_players = await self.get_online_players()
@@ -41,7 +44,7 @@ class MagicRustAPI:
         time_delta = time.time() - days * 84600
         new_players = list(filter(lambda player: player.first_join >= time_delta, players_online))
         if stats:
-            return await self.fill_players_stats(players=new_players)
+            new_players = await self.fill_players_stats(players=new_players)
         return new_players
 
     async def fill_players_stats(self, players: list[Player]) -> list[Player]:

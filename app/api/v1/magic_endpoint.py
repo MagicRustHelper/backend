@@ -13,9 +13,12 @@ router = APIRouter(tags=['MagicRust'])
 
 @router.get('/players/online', response_model=list[entities.Player])
 async def get_online_players(
-    mr_api: MagicRustAPI = Depends(get_mr_api), moderator: Moderator = Depends(get_current_moder)
+    stats: bool = False,
+    *,
+    mr_api: MagicRustAPI = Depends(get_mr_api),
+    moderator: Moderator = Depends(get_current_moder)
 ) -> list[entities.Player]:
-    return await mr_api.get_online_players()
+    return await mr_api.get_online_players(stats=stats)
 
 
 @router.get('/players/online/dict', response_model=dict[steamid, entities.Player])

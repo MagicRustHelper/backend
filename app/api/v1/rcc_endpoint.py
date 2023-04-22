@@ -13,7 +13,7 @@ router = APIRouter(tags=['RCC'])
     response_model=entities.RCCPlayer,
 )
 async def get_rcc_player(
-    steamid: int,
+    steamid: str,
     *,
     rcc_api: RustCheatCheckAPI = Depends(get_rcc_api),
     moderator: Moderator = Depends(get_current_moder)  # noqa
@@ -23,7 +23,7 @@ async def get_rcc_player(
 
 @router.post('/players', response_model=list[entities.RCCPlayer])
 async def get_rcc_players(
-    steamids: list[int],
+    steamids: list[str],
     *,
     rcc_api: RustCheatCheckAPI = Depends(get_rcc_api),
     moderator: Moderator = Depends(get_current_moder)  # noqa
@@ -33,9 +33,13 @@ async def get_rcc_players(
 
 @router.post('/access', response_class=Response, status_code=204)
 async def get_checker_access(
-    steamid: int, rcc_api: RustCheatCheckAPI = Depends(get_rcc_api), moderator: Moderator = Depends(get_current_moder)
+    steamid: str,
+    moder_steamid: str | None = None,
+    rcc_api: RustCheatCheckAPI = Depends(get_rcc_api),
+    moderator: Moderator = Depends(get_current_moder),
 ) -> None:
-    response = await rcc_api.give_checker_access(steamid, moderator.steamid)
+    moder_steamid = moder_steamid or moderator.steamid
+    response = await rcc_api.give_checker_access(steamid, moder_steamid)
     if response.status == entities.RCCResponseStatus.SUCCESS:
         return Response('Доступ выдан', status_code=status.HTTP_204_NO_CONTENT)
     return Response('Не удалоь выдать доступ', status_code=status.HTTP_403_FORBIDDEN)

@@ -13,7 +13,7 @@ class Check(BaseDeclarative):
     id: Mapped[intpk]
     steamid: Mapped[str]
     moderator_id: Mapped[int] = mapped_column(ForeignKey('moderators.id'))
-    start: Mapped[datetime] = mapped_column(insert_default=func.now())
-    end: Mapped[Optional[datetime]] = mapped_column(insert_default=func.now())
+    start: Mapped[int] = mapped_column(insert_default=func.current_timestamp())
+    end: Mapped[Optional[int]] = mapped_column(insert_default=func.current_timestamp())
     server_number: Mapped[int] = mapped_column(nullable=True)
     is_ban: Mapped[bool] = mapped_column(default=False)

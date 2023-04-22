@@ -43,8 +43,8 @@ def upgrade() -> None:
         sa.Column('id', sa.Integer(), nullable=False),
         sa.Column('steamid', sa.String(), nullable=False),
         sa.Column('moderator_id', sa.Integer(), nullable=False),
-        sa.Column('start', sa.DateTime(), nullable=False),
-        sa.Column('end', sa.DateTime(), nullable=True),
+        sa.Column('start', sa.Integer(), nullable=False),
+        sa.Column('end', sa.Integer(), nullable=True),
         sa.Column('server_number', sa.Integer(), nullable=True),
         sa.Column('is_ban', sa.Boolean(), nullable=False),
         sa.ForeignKeyConstraint(
