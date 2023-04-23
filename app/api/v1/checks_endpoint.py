@@ -37,11 +37,11 @@ async def cancel_check(
     return await crud.check.cancel_check(session, check_id)
 
 
-@router.post('/get_checked', response_model=list[str])
+@router.post('/get_checked', response_model=dict[str, int])
 async def get_checked_players(
     steamids: list[str],
     *,
     session: AsyncSession = Depends(get_session),
     moderator: models.Moderator = Depends(get_current_moder)
-) -> list[str]:
+) -> dict[str, int]:
     return await crud.check.get_checked_players(session, steamids)
