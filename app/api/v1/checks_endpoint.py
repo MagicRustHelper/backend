@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import get_current_bot, get_session
+from app.api.deps import get_current_bot, get_current_moder, get_session
 from app.db import crud, models, schemas
 
 router = APIRouter(tags=['Checks'])
@@ -35,3 +35,13 @@ async def cancel_check(
     check_id: int, *, session: AsyncSession = Depends(get_session), bot: models.Moderator = Depends(get_current_bot)
 ) -> models.Check:
     return await crud.check.cancel_check(session, check_id)
+
+
+@router.post('/get_checked', response_model=list[str])
+async def get_checked_players(
+    steamids: list[str],
+    *,
+    session: AsyncSession = Depends(get_session),
+    moderator: models.Moderator = Depends(get_current_moder)
+) -> list[str]:
+    return await crud.check.get_checked_players(session, steamids)

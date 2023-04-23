@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.api.v1 import auth_endpoint, magic_endpoint, moderator_endpoint, rcc_endpoint, steam_endpoint, checks_endpoint
+from app.api.v1 import auth_endpoint, checks_endpoint, magic_endpoint, moderator_endpoint, rcc_endpoint, steam_endpoint
 
 api_router = APIRouter(prefix='/v1')
 api_router.include_router(rcc_endpoint.router, prefix='/rcc')
