@@ -5,7 +5,6 @@ from typing import Any, Callable
 from app.entities import BanInfo, Player, PlayerStats, ReportShow
 from app.services.api_client import APIClient, ResponseModel
 from app.services.magic_rust._urls import ModersMethods, SiteMethods, StatsMethods
-from app.services.magic_rust.servers import SERVERS_ID
 
 
 class MagicRustAPI:
@@ -13,14 +12,12 @@ class MagicRustAPI:
         self.api_client = APIClient()
 
     async def get_player_stats(self, steamid: int, server_number: int) -> PlayerStats:
-        server_id = self._get_server_id(server_number)
-        params = {'server': server_id, 'steamid': steamid}
+        params = {'server': server_number, 'steamid': steamid}
         url = StatsMethods.PLAYER_STATS
         return await self.api_request(url, params=params, response_model=PlayerStats)
 
     async def get_server_players_stats(self, server_number: int) -> list[PlayerStats]:
-        server_id = self._get_server_id(server_number)
-        params = {'server': server_id}
+        params = {'server': server_number}
         url = StatsMethods.SERVER_STATS
         return await self.api_request(url, params=params, response_model=PlayerStats)
 
@@ -79,6 +76,3 @@ class MagicRustAPI:
             tasks.append(task)
         results = await asyncio.gather(*tasks, return_exceptions=False)
         return results
-
-    def _get_server_id(self, server_number: int) -> int:
-        return SERVERS_ID.get(server_number, 1655)
