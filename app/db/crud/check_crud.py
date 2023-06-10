@@ -42,7 +42,9 @@ class CRUDCheck(CRUDBase[Check, CreateCheck, UpdateCheck]):
         )
         result = await session.execute(statement)
         result = result.all()
-        return [ModeratorsCheck(count, moderator_id, name) for count, moderator_id, name in result]
+        return [
+            ModeratorsCheck(count=count, moderator_id=moderator_id, name=name) for count, moderator_id, name in result
+        ]
 
 
 check = CRUDCheck(Check)
