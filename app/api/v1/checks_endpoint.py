@@ -49,7 +49,7 @@ async def get_checked_players(
 
 @router.get('/steamid/{steamid}', response_model=int)
 async def get_last_player_check(
-    steamid: int,
+    steamid: str,
     *,
     session: AsyncSession = Depends(get_session),
     moderator: models.Moderator = Depends(get_current_moder)
