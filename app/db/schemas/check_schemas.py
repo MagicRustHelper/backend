@@ -1,11 +1,8 @@
-from datetime import datetime
 from typing import Optional
 
 from pydantic import BaseModel, Field
 
-
-def get_now_time() -> datetime:
-    return datetime.now().timestamp()
+from app.db.schemas.utils import get_now_time
 
 
 class CheckBase(BaseModel):

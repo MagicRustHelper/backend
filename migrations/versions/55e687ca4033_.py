@@ -33,7 +33,7 @@ def upgrade() -> None:
         'reports',
         sa.Column('id', sa.Integer(), nullable=False),
         sa.Column('author_nickname', sa.String(), nullable=False),
-        sa.Column('report_steamid', sa.BigInteger(), nullable=False),
+        sa.Column('report_steamid', sa.String(), nullable=False),
         sa.Column('time', sa.DateTime(), nullable=False),
         sa.Column('server_number', sa.Integer(), nullable=False),
         sa.PrimaryKeyConstraint('id'),
