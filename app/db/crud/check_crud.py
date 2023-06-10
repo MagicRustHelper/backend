@@ -25,5 +25,11 @@ class CRUDCheck(CRUDBase[Check, CreateCheck, UpdateCheck]):
         result = {steamid: start for steamid, start in result.all()}
         return result
 
+    async def get_player_last_check(self, session: AsyncSession, steamid: str) -> int | None:
+        statement = select(self.model).filter(self.model.steamid == steamid).order_by(self.model.id.desc())
+        result = await session.execute(statement)
+        result = result.first()
+        return result
+
 
 check = CRUDCheck(Check)

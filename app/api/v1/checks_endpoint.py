@@ -45,3 +45,13 @@ async def get_checked_players(
     moderator: models.Moderator = Depends(get_current_moder)
 ) -> dict[str, int]:
     return await crud.check.get_checked_players(session, steamids)
+
+
+@router.get('/steamid/{steamid}', response_model=int)
+async def get_last_player_check(
+    steamid: int,
+    *,
+    session: AsyncSession = Depends(get_session),
+    moderator: models.Moderator(Depends(get_current_moder))
+) -> int:
+    return await crud.check.get_player_last_check(session, steamid)
