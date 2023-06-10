@@ -59,3 +59,10 @@ async def fill_players_stats(
     moderator: Moderator = Depends(get_current_moder)
 ) -> entities.Player:
     return await mr_api.fill_players_stats(players)
+
+
+@router.get('/players/banned', response_model=list[entities.BanInfo])
+async def get_banned_players(
+    *, mr_api: MagicRustAPI = Depends(get_mr_api), moderator: Moderator = Depends(get_current_moder)
+) -> list[entities.BanInfo]:
+    return await mr_api.get_banned_players()
