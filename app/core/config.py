@@ -1,4 +1,5 @@
 import secrets
+from datetime import timedelta, timezone
 from typing import Any, Optional
 
 from pydantic import BaseSettings, PostgresDsn, validator
@@ -19,6 +20,9 @@ class Settings(BaseSettings):
     TOKEN_LIVE_DAYS = 30
 
     SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn] = None
+
+    TIMEZONE = timezone(timedelta(hours=3), name='Europe/Moscow')
+    WIPE_TIME = 12
 
     @validator('SQLALCHEMY_DATABASE_URI', pre=True)
     def assemble_db_connection(cls, v: Optional[str], values: dict[str, Any]) -> Any:

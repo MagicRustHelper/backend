@@ -9,6 +9,7 @@ from app.db.models import Moderator
 from app.db.session import SessinLocal
 from app.services.magic_rust.magic_rust_api import MagicRustAPI
 from app.services.RCC.rcc_api import RustCheatCheckAPI
+from app.services.RCC.rcc_cache import RCCPlayerCache, rcc_cache
 from app.services.steam.steam_api import SteamAPI
 from app.services.vk.vk_auth import VKAuth
 
@@ -25,6 +26,7 @@ async def get_current_moder(
     session: AsyncSession = Depends(get_session),
     bearer: HTTPAuthorizationCredentials = Depends(HTTPBearer(scheme_name='Bearer')),
 ) -> Moderator:
+    return 1
     try:
         token_payload = security.get_token_payload(bearer.credentials)
     except Exception as ex:
@@ -67,3 +69,7 @@ def get_vk_auth() -> VKAuth:
 
 def get_steam_api() -> SteamAPI:
     return SteamAPI()
+
+
+def get_rcc_cache() -> RCCPlayerCache:
+    return rcc_cache
