@@ -26,7 +26,6 @@ async def get_current_moder(
     session: AsyncSession = Depends(get_session),
     bearer: HTTPAuthorizationCredentials = Depends(HTTPBearer(scheme_name='Bearer')),
 ) -> Moderator:
-    return 1
     try:
         token_payload = security.get_token_payload(bearer.credentials)
     except Exception as ex:
