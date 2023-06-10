@@ -54,7 +54,8 @@ async def get_last_player_check(
     session: AsyncSession = Depends(get_session),
     moderator: models.Moderator = Depends(get_current_moder)
 ) -> models.Check:
-    return await crud.check.get_player_last_check(session, steamid)
+    last_check = await crud.check.get_player_last_check(session, steamid)
+    return last_check if last_check else {}
 
 
 @router.get('/moderators_count', response_model=list[schemas.ModeratorsCheck])

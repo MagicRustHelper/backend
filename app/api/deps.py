@@ -29,7 +29,6 @@ async def get_current_moder(
     try:
         token_payload = security.get_token_payload(bearer.credentials)
     except Exception as ex:
-        print(ex)
         logger.warning(f'Cant auth user with bearer {bearer}')
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
