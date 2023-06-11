@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Response, status
+from fastapi import APIRouter, Depends, Response, status, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_moder, get_current_superuser, get_session
@@ -16,6 +16,19 @@ async def get_profile_data(*, moderator: models.Moderator = Depends(get_current_
         steamid=moderator.steamid,
         vk_id=moderator.vk_id,
     )
+
+
+@router.get('/data/{vk_id}', response_model=models.Moderator)
+async def get_profile_data_by_vk(
+    vk_id: int,
+    *,
+    session: AsyncSession = Depends(get_session),
+    moderator: models.Moderator = Depends(get_current_moder)
+) -> schemas.Moderator:
+    moderator = await crud.moderator.get_moder_by_vk(session, vk_id)
+    if not moderator:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Moderator not found')
+    return moderator
 
 
 @router.get('/settings', response_model=schemas.ModeratorSettings)
