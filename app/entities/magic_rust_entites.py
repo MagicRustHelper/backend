@@ -15,7 +15,7 @@ class PlayerStats(BaseModel):
     headshot: int = Field(0, alias='kp_head')
     kd: float
     nickname: str = Field(None, alias='name')
-    avatar: str = Field(DEFAULT_STEAM_AVATAR)
+    avatar: str | None = Field(DEFAULT_STEAM_AVATAR)
 
     @root_validator(pre=True)
     def get_kd(cls, values: dict) -> dict:
