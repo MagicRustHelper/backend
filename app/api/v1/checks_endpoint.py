@@ -58,12 +58,23 @@ async def get_last_player_check(
     return last_check if last_check else {}
 
 
-@router.get('/moderators_count', response_model=list[schemas.ModeratorsCheck])
+@router.get('/moderators_count', response_model=list[schemas.ModeratorsCheckCount])
 async def get_moderators_count_checks(
     time_start: float,
     time_end: float,
     *,
     session: AsyncSession = Depends(get_session),
     moderator: models.Moderator = Depends(get_current_moder)
-) -> list[schemas.ModeratorsCheck]:
+) -> list[schemas.ModeratorsCheckCount]:
     return await crud.check.get_moderators_count_checks(session, time_start, time_end)
+
+
+@router.get('/length', response_model=schemas.ModeratorsChecksLength)
+async def get_moderators_checks_length(
+    time_start: float,
+    time_end: float,
+    *,
+    session: AsyncSession = Depends(get_session),
+    moderator: models.Moderator = Depends(get_current_moder)
+) -> schemas.ModeratorsChecksLength:
+    return await crud.check.get_moderator_length_checks(session, time_start, time_end)

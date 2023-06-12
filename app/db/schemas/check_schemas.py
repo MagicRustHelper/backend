@@ -27,10 +27,15 @@ class UpdateCheck(CheckBase):
     is_ban: Optional[bool] = None
 
 
-class ModeratorsCheck(BaseModel):
+class ModeratorsCheckCount(BaseModel):
     moderator_id: int
     count: int
     name: str
+
+
+class ModeratorsChecksLength(BaseModel):
+    name: str
+    total_length: int
 
 
 class Check(CheckBase):
