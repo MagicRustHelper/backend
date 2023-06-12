@@ -65,7 +65,7 @@ class CRUDCheck(CRUDBase[Check, CreateCheck, UpdateCheck]):
         ).join(substatement, substatement.c.moderator_id == Moderator.id)
         result = await session.execute(statement)
         result = result.all()
-        return [ModeratorsChecksLength(name=name, total_time=total_time) for name, total_time in result]
+        return [ModeratorsChecksLength(name=name, total_length=total_time) for name, total_time in result]
 
 
 check = CRUDCheck(Check)
