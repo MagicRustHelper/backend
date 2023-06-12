@@ -35,7 +35,7 @@ class ModeratorsCheckCount(BaseModel):
 
 class ModeratorsChecksLength(BaseModel):
     name: str
-    total_length: int
+    total_length: float = 0
 
 
 class Check(CheckBase):

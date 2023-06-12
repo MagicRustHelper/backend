@@ -69,12 +69,12 @@ async def get_moderators_count_checks(
     return await crud.check.get_moderators_count_checks(session, time_start, time_end)
 
 
-@router.get('/length', response_model=schemas.ModeratorsChecksLength)
+@router.get('/length', response_model=list[schemas.ModeratorsChecksLength])
 async def get_moderators_checks_length(
     time_start: float,
     time_end: float,
     *,
     session: AsyncSession = Depends(get_session),
     moderator: models.Moderator = Depends(get_current_moder)
-) -> schemas.ModeratorsChecksLength:
+) -> list[schemas.ModeratorsChecksLength]:
     return await crud.check.get_moderator_length_checks(session, time_start, time_end)
