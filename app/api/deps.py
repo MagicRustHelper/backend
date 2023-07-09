@@ -11,6 +11,7 @@ from app.services.magic_rust.magic_rust_api import MagicRustAPI
 from app.services.RCC.rcc_api import RustCheatCheckAPI
 from app.services.RCC.rcc_cache import RCCPlayerCache, rcc_cache
 from app.services.steam.steam_api import SteamAPI
+from app.services.steam.steam_friends import SteamFriends
 from app.services.vk.vk_auth import VKAuth
 
 
@@ -71,3 +72,7 @@ def get_steam_api() -> SteamAPI:
 
 def get_rcc_cache() -> RCCPlayerCache:
     return rcc_cache
+
+
+def get_steam_friends_api() -> SteamFriends:
+    return SteamFriends()
