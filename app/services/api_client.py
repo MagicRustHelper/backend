@@ -9,8 +9,10 @@ ResponseModel = TypeVar('ResponseModel', bound=BaseModel)
 
 
 class APIClient:
-    def __init__(self, base_url: str = '', retries: int = 3, sleep: int = 6) -> None:
-        self.http_client = HTTPClient(base_url, retries=retries, sleep=sleep)
+    def __init__(
+        self, base_url: str = '', retries: int = 3, sleep: int = 6, exclude_codes: list[httpx.codes] | None = None
+    ) -> None:
+        self.http_client = HTTPClient(base_url, retries=retries, sleep=sleep, exclude_codes=exclude_codes)
 
     async def api_GET_request(
         self,

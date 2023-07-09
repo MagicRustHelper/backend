@@ -32,6 +32,10 @@ class MagicRustAPI:
             players = await self.fill_players_stats(players=players)
         return players
 
+    async def get_online_players_by_server(self, server_number: int, stats: bool = False) -> list[Player]:
+        online_players = await self.get_online_players(stats)
+        return list(filter(lambda player: player.server_number == server_number, online_players))
+
     async def get_online_steamids(self) -> list[int]:
         online_players = await self.get_online_players()
         return [player.steamid for player in online_players]

@@ -6,7 +6,9 @@ from loguru import logger
 
 
 class HTTPClient:
-    def __init__(self, base_url: str = '', retries: int = 3, sleep: int = 6) -> None:
+    def __init__(
+        self, base_url: str = '', retries: int = 3, sleep: int = 6, exclude_codes: list[httpx.codes] | None = None
+    ) -> None:
         user_agent = f'MAGIC RUST HELPER (v2.0); Python {sys.version_info.major}.{sys.version_info.minor} // HTTPX v{httpx.__version__}'
         self.client = httpx.AsyncClient(
             base_url=base_url,
@@ -16,6 +18,7 @@ class HTTPClient:
         self.client.headers.update({'User-Agent': user_agent})
         self.retries = retries
         self.sleep = sleep
+        self.exclude_codes = exclude_codes or []
 
     async def raw_request(
         self, url: str, http_method: str, query: dict | None = None, payload: dict | None = None, **kwargs
@@ -34,8 +37,10 @@ class HTTPClient:
             try:
                 response.raise_for_status()
             except httpx.HTTPStatusError as e:
+                if response.status_code in self.exclude_codes:
+                    return response
                 retry -= 1
-                logger.exception(e)
+                logger.warning(e)
                 if retry == 0:
                     raise e
                 await asyncio.sleep(self.sleep)
