@@ -31,7 +31,7 @@ class Player(BaseModel):
     ip: str
     nickname: str
     server_number: int = Field(..., alias='server')
-    first_join: int = Field(..., default=0, alias='firstjoin')
+    first_join: int = Field(0, alias='firstjoin')
     vk: Optional[int] = None
     stats: Optional[PlayerStats] = None
 
