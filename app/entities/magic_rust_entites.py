@@ -35,6 +35,13 @@ class Player(BaseModel):
     vk: Optional[int] = None
     stats: Optional[PlayerStats] = None
 
+    @root_validator(pre=True)
+    def validate_firsh_join(cls, values: dict) -> dict:
+        first_join = values.get('firstjoin')
+        if not first_join:
+            values['firstjoin'] = 0
+        return values
+
 
 class BanInfo(BaseModel):
     ban_id: int = Field(0, alias='banID')
