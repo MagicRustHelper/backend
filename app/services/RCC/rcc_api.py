@@ -25,8 +25,17 @@ class RustCheatCheckAPI:
         return rcc_player
 
     async def get_rcc_players(self, steamids: list[str]) -> list[RCCPlayer]:
-        response = await self.api_requests(self.get_rcc_player, steamids)
-        return utils.exclude_exception(response)
+        response = []
+        for steamid in steamids:
+            try:
+                rcc_player = await self.get_rcc_player(steamid)
+            except Exception:
+                continue
+            else:
+                response.append(rcc_player)
+            finally:
+                await asyncio.sleep(0.3)
+        return response
 
     async def give_checker_access(self, player_steamid: str, moder_stemaid: str = 0) -> RCCBaseResponse:
         params = {

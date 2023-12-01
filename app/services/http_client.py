@@ -12,7 +12,7 @@ class HTTPClient:
         user_agent = f'MAGIC RUST HELPER (v2.0); Python {sys.version_info.major}.{sys.version_info.minor} // HTTPX v{httpx.__version__}'
         self.client = httpx.AsyncClient(
             base_url=base_url,
-            limits=httpx.Limits(max_connections=60, max_keepalive_connections=10, keepalive_expiry=60 * 60),
+            limits=httpx.Limits(max_connections=5, max_keepalive_connections=5, keepalive_expiry=60 * 60),
             timeout=httpx.Timeout(60 * 60),
         )
         self.client.headers.update({'User-Agent': user_agent})

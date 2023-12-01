@@ -2,3 +2,5 @@
 .env.dev
 __pycache__
 test.py
+*.xml
+*.iml

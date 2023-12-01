@@ -9,7 +9,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api import api_router
-from app.core.delayed_tasks import run_delayed_tasks
 
 app = FastAPI(title='MagicHelper API')
 app.add_middleware(
@@ -24,4 +23,6 @@ app.include_router(api_router)
 
 @app.on_event('startup')
 async def startup_event() -> None:
+    from app.core.delayed_tasks import run_delayed_tasks
+
     run_delayed_tasks()
