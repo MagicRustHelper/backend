@@ -34,7 +34,7 @@ class RustCheatCheckAPI:
             else:
                 response.append(rcc_player)
             finally:
-                await asyncio.sleep(0.3)
+                await asyncio.sleep(0.15)
         return response
 
     async def give_checker_access(self, player_steamid: str, moder_stemaid: str = 0) -> RCCBaseResponse:
